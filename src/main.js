@@ -120,6 +120,7 @@ function handleQuery(url) {
       pokemons.forEach((pokemon) => {
         getPokemonUrl(pokemon).then((pokemonUrl) => {
           createCard(pokemonUrl);
+          $handleDetails()
         });
       });
     });
