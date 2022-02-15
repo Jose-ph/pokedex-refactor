@@ -119,10 +119,10 @@ function handleQuery(url) {
     .then((response) => {
 
       
-      let urls = setNextAndPreviousUrl(nextUrl, previousUrl, response)
+      let changePageUrls = setNextAndPreviousUrl(nextUrl, previousUrl, response)
       
-      setNextButton(urls[0])
-      setPreviousButton(urls[1])
+      setNextButton(changePageUrls[0])
+      setPreviousButton(changePageUrls[1])
 
       let pokemons = response.results;
 
@@ -137,17 +137,6 @@ function handleQuery(url) {
       });
     });
 }
-
-const $getButton = document.querySelector("#get-btn");
-
-const firstUrl = "https://pokeapi.co/api/v2/pokemon?limit=10";
-//cambiar url  de global al scope de la función
-$getButton.onclick = () => {
-  $getButton.classList.add("disabled");
-
-  handleQuery(firstUrl);
-};
-
 
 function setNextButton (url) {
 
@@ -183,4 +172,8 @@ function setPreviousButton (url) {
   };
 
 }
+
+const firstUrl = "https://pokeapi.co/api/v2/pokemon?limit=10";
+
+  handleQuery(firstUrl);
 
