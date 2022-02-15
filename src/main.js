@@ -99,8 +99,12 @@ function getPokemons(url) {
 }
 
 function setNextAndPreviousUrl(nextUrl, previousUrl, urlInfo) {
-  nextUrl[0] = urlInfo.next;
-  previousUrl[0] = urlInfo.previous;
+
+   nextUrl = urlInfo.next,
+  previousUrl = urlInfo.previous
+
+  return [nextUrl,previousUrl]
+  
 }
 
 function getPokemonUrl(pokemon) {
@@ -108,9 +112,17 @@ function getPokemonUrl(pokemon) {
 }
 
 function handleQuery(url) {
+  
+  let nextUrl = ""
+   let previousUrl = ""
   getPokemons(url)
     .then((response) => {
-      setNextAndPreviousUrl(nextUrl, previousUrl, response);
+
+      
+      let urls = setNextAndPreviousUrl(nextUrl, previousUrl, response)
+      
+      setNextButton(urls[0])
+      setPreviousButton(urls[1])
 
       let pokemons = response.results;
 
@@ -127,35 +139,48 @@ function handleQuery(url) {
 }
 
 const $getButton = document.querySelector("#get-btn");
-const $nextButton = document.querySelector("#next-btn");
-const $previousButton = document.querySelector("#previous-btn");
 
 const firstUrl = "https://pokeapi.co/api/v2/pokemon?limit=10";
-const nextUrl = [];
-const previousUrl = [];
-
-$previousButton.onclick = () => {
-  if (previousUrl.length !== 0 && previousUrl[0] !== null) {
-    deleteCards();
-
-    handleQuery(previousUrl[[0]]);
-  } else {
-    console.error("no se puede realizar la petición ERROR");
-  }
-};
-
-$nextButton.onclick = () => {
-  if (nextUrl.length !== 0) {
-    deleteCards();
-
-    handleQuery(nextUrl[0]);
-  } else {
-    console.error("no se puede realizar la petición ERROR");
-  }
-};
-
+//cambiar url  de global al scope de la función
 $getButton.onclick = () => {
   $getButton.classList.add("disabled");
 
   handleQuery(firstUrl);
 };
+
+
+function setNextButton (url) {
+
+  const $nextButton = document.querySelector("#next-btn");
+
+  $nextButton.onclick = () => {
+    const nextUrl = url;
+    if (nextUrl.length !== 0) {
+      deleteCards();
+  
+      handleQuery(nextUrl);
+    } else {
+      console.error("Error: aún no hay datos");
+    }
+  };
+
+}
+
+function setPreviousButton (url) {
+
+ 
+  const $previousButton = document.querySelector("#previous-btn");
+  $previousButton.onclick = () => {
+    const previousUrl = url
+  
+    if (previousUrl!== "" && previousUrl !== null) {
+      deleteCards();
+  
+      handleQuery(previousUrl);
+    } else {
+      console.error("Error: no hay página previa");
+    }
+  };
+
+}
+
