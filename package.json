@@ -1,7 +1,7 @@
 {
   "name": "pokedex",
   "version": "1.0.0",
-  "description": "Punto 2 tarea clase 12 r/argentina-programa",
+  "description": "Pokedex realizado utilizando PokeApi y test con Cypress",
   "main": "index.html",
   "scripts": {
     "cypress:open": "cypress open"
