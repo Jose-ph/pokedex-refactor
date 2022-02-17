@@ -1,8 +1,42 @@
 
-/* import {getPokemonsById,getPokemons,getPokemonUrl} from './services.js'
+import {getPokemonsById,getPokemons,getPokemonUrl} from './services.js'
 
-import {createCard,setModal,setNextButton,setPreviousButton } from './ui.js'
- */
+import {deleteCards,createCard,setModal } from './ui.js'
+ 
+
+function setNextButton(url) {
+  const $nextButton = document.querySelector("#next-btn");
+
+  $nextButton.onclick = () => {
+    const nextUrl = url;
+    if (nextUrl.length !== 0) {
+      deleteCards();
+
+      handleQuery(nextUrl);
+    } else {
+      console.error("Error: aún no hay datos");
+    }
+  };
+}
+
+function setPreviousButton(url) {
+  const $previousButton = document.querySelector("#previous-btn");
+  $previousButton.onclick = () => {
+    const previousUrl = url;
+
+    if (previousUrl !== "" && previousUrl !== null) {
+      deleteCards();
+
+      handleQuery(previousUrl);
+    } else {
+      console.error("Error: no hay página previa");
+    }
+  };
+}
+
+
+
+
 function $handleDetails() {
   const detailButtons = document.querySelectorAll(".detail");
 
