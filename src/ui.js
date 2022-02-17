@@ -1,4 +1,4 @@
-//this function is only needed in this file , then there is no need to export it
+
 export function deleteCards() {
     const cards = document.querySelectorAll(".card");
   
@@ -80,34 +80,4 @@ export function deleteCards() {
   }
 
   
-  export function setNextButton(url) {
-    const $nextButton = document.querySelector("#next-btn");
-  
-    $nextButton.onclick = () => {
-      const nextUrl = url;
-      if (nextUrl.length !== 0) {
-        deleteCards();
-  
-        handleQuery(nextUrl);
-      } else {
-        console.error("Error: aún no hay datos");
-      }
-    };
-  }
-  
-  export function setPreviousButton(url) {
-    const $previousButton = document.querySelector("#previous-btn");
-    $previousButton.onclick = () => {
-      const previousUrl = url;
-  
-      if (previousUrl !== "" && previousUrl !== null) {
-        deleteCards();
-  
-        handleQuery(previousUrl);
-      } else {
-        console.error("Error: no hay página previa");
-      }
-    };
-  }
-
-
+ 
