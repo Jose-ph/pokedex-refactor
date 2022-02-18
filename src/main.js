@@ -57,7 +57,7 @@ function setNextAndPreviousUrl(nextUrl, previousUrl, urlInfo) {
   return [nextUrl, previousUrl];
 }
 
-
+/* 
 function handleQuery(url) {
   let nextUrl = "";
   let previousUrl = "";
@@ -84,6 +84,45 @@ function handleQuery(url) {
         });
       });
     });
+} */
+
+
+//Aplicando async await
+
+async function handleQuery(url){
+
+   const pokemonsData = await getPokemons(url) 
+
+   let nextUrl = "";
+   let previousUrl = "";
+
+   let changePageUrls = setNextAndPreviousUrl(
+    nextUrl,
+    previousUrl,
+    pokemonsData
+  );
+
+  setNextButton(changePageUrls[0]);
+  setPreviousButton(changePageUrls[1]);
+
+  const pokemonsResults = pokemonsData.results
+
+  
+
+    pokemonsResults.forEach(result => {
+
+      getPokemonUrl(result).then((pokemonUrl) =>{
+
+        createCard(pokemonUrl);
+        $handleDetails();
+
+      })
+
+
+
+      
+    });  
+
 }
 
 
