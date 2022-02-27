@@ -58,43 +58,11 @@ function setNextAndPreviousUrl(nextUrl, previousUrl, urlInfo) {
   return [nextUrl, previousUrl];
 }
 
-/* 
-function handleQuery(url) {
-  let nextUrl = "";
-  let previousUrl = "";
-  getPokemons(url)
-    .then((response) => {
-      let changePageUrls = setNextAndPreviousUrl(
-        nextUrl,
-        previousUrl,
-        response
-      );
-
-      setNextButton(changePageUrls[0]);
-      setPreviousButton(changePageUrls[1]);
-
-      let pokemons = response.results;
-
-      return pokemons;
-    })
-    .then((pokemons) => {
-      pokemons.forEach((pokemon) => {
-        getPokemonUrl(pokemon).then((pokemonUrl) => {
-          createCard(pokemonUrl);
-          $handleDetails();
-        });
-      });
-    });
-} */
-
 //Aplicando async await
 
 async function handleQuery(url){
 
-  alert("Inicio del proceso")
-
-
-
+  
    const pokemonsData = await getPokemons(url) 
 
    let nextUrl = "";
@@ -119,51 +87,9 @@ async function handleQuery(url){
   
     let  storedPokemons = localStorage.setItem(`${dataId}`, JSON.stringify(pokemonsData))
 
-    if (localStorage[dataId]){
+    /* FIN  DE LOCAL STORAGE */
 
-      let pokemonsResults = JSON.parse(localStorage.getItem(dataId)).results
-      
-      pokemonsResults.forEach(result => {
-
-        getPokemonUrl(result).then((pokemonUrl) =>{
-  
-          createCard(pokemonUrl);
-          $handleDetails();
-  
-        })
-  
-  
-  
-        
-      })
-
-    } 
-    }
-  
-
- /*    
-    if (){
-
-       alert("Desde Local Storage")
-      let pokemonsResults = JSON.parse(localStorage.getItem(dataId)).results
-      
-      pokemonsResults.forEach(result => {
-
-        getPokemonUrl(result).then((pokemonUrl) =>{
-  
-          createCard(pokemonUrl);
-          $handleDetails();
-  
-        })
-  
-  
-  
-        
-      })
-
-    } */
-
-  /*   pokemonsResults.forEach(result => {
+    pokemonsResults.forEach(result => {
 
       getPokemonUrl(result).then((pokemonUrl) =>{
 
@@ -175,9 +101,12 @@ async function handleQuery(url){
 
 
       
-    });  */
+    }); 
 
-/* FIN  DE LOCAL STORAGE */
+    }
+
+
+
 
 
 
@@ -202,5 +131,7 @@ async function handleQuery(url){
 
 
 const firstUrl = "https://pokeapi.co/api/v2/pokemon?limit=10";
+
+
 
 handleQuery(firstUrl);
