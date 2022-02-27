@@ -1,4 +1,5 @@
 
+
 import {getPokemonsById,getPokemons,getPokemonUrl} from './services.js'
 
 import {deleteCards,createCard,setModal } from './ui.js'
@@ -86,10 +87,13 @@ function handleQuery(url) {
     });
 } */
 
-
 //Aplicando async await
 
 async function handleQuery(url){
+
+  alert("Inicio del proceso")
+
+
 
    const pokemonsData = await getPokemons(url) 
 
@@ -105,11 +109,61 @@ async function handleQuery(url){
   setNextButton(changePageUrls[0]);
   setPreviousButton(changePageUrls[1]);
 
+
   const pokemonsResults = pokemonsData.results
 
+
+    /*AGREGA LOCAL STORAGE */
+
+    let dataId = pokemonsData.next.split('?')[1]
+  
+    let  storedPokemons = localStorage.setItem(`${dataId}`, JSON.stringify(pokemonsData))
+
+    if (localStorage[dataId]){
+
+      let pokemonsResults = JSON.parse(localStorage.getItem(dataId)).results
+      
+      pokemonsResults.forEach(result => {
+
+        getPokemonUrl(result).then((pokemonUrl) =>{
+  
+          createCard(pokemonUrl);
+          $handleDetails();
+  
+        })
+  
+  
+  
+        
+      })
+
+    } 
+    }
   
 
-    pokemonsResults.forEach(result => {
+ /*    
+    if (){
+
+       alert("Desde Local Storage")
+      let pokemonsResults = JSON.parse(localStorage.getItem(dataId)).results
+      
+      pokemonsResults.forEach(result => {
+
+        getPokemonUrl(result).then((pokemonUrl) =>{
+  
+          createCard(pokemonUrl);
+          $handleDetails();
+  
+        })
+  
+  
+  
+        
+      })
+
+    } */
+
+  /*   pokemonsResults.forEach(result => {
 
       getPokemonUrl(result).then((pokemonUrl) =>{
 
@@ -121,9 +175,29 @@ async function handleQuery(url){
 
 
       
-    });  
+    });  */
 
-}
+/* FIN  DE LOCAL STORAGE */
+
+
+
+/* Esto estaba antes INICIO */
+ /*    pokemonsResults.forEach(result => {
+
+      getPokemonUrl(result).then((pokemonUrl) =>{
+
+        createCard(pokemonUrl);
+        $handleDetails();
+
+      })
+
+
+
+      
+    });   */
+    /*Esto estaba antes FIN */
+
+  
 
 
 
